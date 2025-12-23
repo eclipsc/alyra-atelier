@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Quote | Alyra Atelier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #C2E2FA; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .quote-card { background: white; width: 100%; max-width: 600px; padding: 40px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h2 { color: #696FC7; text-align: center; margin-bottom: 10px; }
+        p { text-align: center; color: #777; margin-bottom: 30px; font-size: 0.9rem; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 8px; color: #555; }
+        input, select, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-family: inherit; transition: 0.3s; }
+        input:focus { border-color: #A7AAE1; outline: none; }
+        
+        .submit-btn { width: 100%; padding: 15px; background: #696FC7; color: white; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { background: #F2AEBB; transform: translateY(-2px); }
+        .back-btn { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #999; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="quote-card">
+        <h2>Request a Creative Quote</h2>
+        <p>Fill out the details below and we'll bring your vision to life.</p>
+        <form id="quoteForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+                <label>Design Service</label>
+                <select required>
+                    <option value="">Select Service...</option>
+                    <option value="pubmat">Social Media Pubmat</option>
+                    <option value="infographic">Infographic</option>
+                    <option value="brochure">Brochure/Menu</option>
+                    <option value="other">Custom Request</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Project Deadline</label>
+                <input type="date" required>
+            </div>
+            <div class="form-group">
+                <label>Design Theme / Color Requirements</label>
+                <textarea rows="4" placeholder="Describe the aesthetic, colors, and content you want..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Inquiry</button>
+        </form>
+        <a href="home.html" class="back-btn">Cancel and return home</a>
+    </div>
+
+    <script>
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Thank you! Your creative request has been sent to Alyra Atelier.");
+            window.location.href = "home.html";
+        });
+    </script>
+</body>
+</html>

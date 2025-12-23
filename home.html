@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alyra Atelier | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-purple: #696FC7; --light-purple: #A7AAE1; --peach: #F5D3C4;
+            --soft-pink: #F2AEBB; --white: #FFFFFF; --sky-blue: #C2E2FA;
+            --box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: #333; scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* --- ADDITION: ANIMATED GRADIENT CONFIG --- */
+       @keyframes gradientMove {
+		0% { background-size: 100% 100%; }
+		50% { background-size: 150% 150%; }
+		100% { background-size: 100% 100%; }
+		background-size: 200% 200% !important;
+		animation: gradientMove 5.5s ease infinite !important;
+        }
+
+        /* --- Global Reveal --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- Header & Nav --- */
+        header {
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .logo-container { display: flex; align-items: center; text-decoration: none; gap: 15px; }
+        .logo-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--light-purple); background: var(--white); }
+        .logo-text { font-family: 'Playfair Display', serif; font-weight: bold; font-size: 1.6rem; color: var(--primary-purple); }
+
+        .nav-toggle { display: none; font-size: 1.5rem; color: var(--primary-purple); cursor: pointer; }
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { text-decoration: none; color: #555; font-weight: 500; font-size: 0.85rem; transition: 0.3s; }
+        nav ul li a:hover { color: var(--primary-purple); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 90vh; background: radial-gradient(135deg, var(--sky-blue), var(--white), var(--sky-blue));
+            display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 15%;
+            margin-top: 60px;
+        }
+        .hero-text h1 { font-size: 3.5rem; color: var(--primary-purple); margin-bottom: 20px; line-height: 1.1; }
+        .hero-text p { font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto 30px; }
+
+        .cta-btn { display: inline-block; padding: 14px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; margin: 10px; }
+        .btn-fill { background: var(--primary-purple); color: white; }
+        .btn-outline { border: 2px solid var(--primary-purple); color: var(--primary-purple); }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* --- Sections Style --- */
+        section { padding: 100px 10%; text-align: center; }
+        .section-title { font-size: 2.8rem; margin-bottom: 50px; position: relative; display: inline-block; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1); }
+        .section-title::after { content: ''; width: 60%; height: 3px; background: var(--soft-pink); position: absolute; bottom: -10px; left: 20%; }
+
+        /* About & Grid */
+        .about-container { max-width: 1000px; margin: 0 auto; background: white; padding: 50px; border-radius: 30px; box-shadow: var(--box-shadow); }
+        .mission-vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; text-align: left; }
+        .mv-card { background: rgba(255,255,255,0.6); padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary-purple); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .mv-card p { font-size: 0.95rem; text-align: justify; line-height: 1.6; }
+        
+        .values-title { 
+            font-size: 2.8rem; 
+            margin: 40px 0 30px; 
+            color: var(--primary-purple); 
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1); 
+            font-family: 'Playfair Display', serif;
+        }
+
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
+        .value-card { background: var(--white); padding: 25px; border-radius: 20px; border-bottom: 4px solid var(--light-purple); text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: 0.3s; }
+        .value-card:hover { transform: translateY(-5px); box-shadow: var(--box-shadow); }
+
+        /* Team */
+        .team-flex { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; margin-top: 40px; }
+        .team-member { max-width: 320px; text-align: center; }
+        .team-circle { 
+            width: 220px; height: 220px; border-radius: 50%; background: white; margin: 0 auto 25px; 
+            border: 8px solid white; overflow: hidden; 
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8); /* Glow added here */
+        }
+        .team-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .quote-italic { font-style: italic; color: var(--primary-purple); margin-bottom: 10px; }
+
+        /* Pricing */
+        .pricing-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; max-width: 1100px; margin: 0 auto 30px; }
+        .price-card { background: white; padding: 35px; border-radius: 22px; width: 220px; text-align: center; box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--soft-pink); transition: 0.4s ease; }
+        .price-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .price-card h3 { color: var(--primary-purple); margin-bottom: 12px; font-size: 1.3rem; }
+        .price-card p { font-size: 1.6rem; font-weight: 600; color: var(--primary-purple); }
+        .price-disclaimer { font-size: 0.85rem; color: #777; font-style: italic; max-width: 700px; margin: 30px auto; border: 1px dashed var(--light-purple); padding: 15px; border-radius: 15px; background: rgba(255,255,255,0.8); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+
+        /* --- Portfolio --- */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .portfolio-item { 
+            height: 350px; 
+            background: #eee; 
+            border-radius: 25px; 
+            position: relative; 
+            overflow: hidden; 
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); 
+            cursor: pointer;
+            transition: 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.9);
+            transform: translateY(-5px);
+        }
+
+        .portfolio-item img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: 0.7s cubic-bezier(0.4, 0, 0.2, 1); 
+            filter: blur(4px) grayscale(20%); 
+        }
+
+        .portfolio-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            display: flex; align-items: center; justify-content: center; 
+            opacity: 1; transition: 0.6s ease; 
+            color: white; padding: 20px; text-align: center;
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        .bg-purple { background: rgba(105, 111, 199, 0.92); }
+        .bg-pink   { background: rgba(242, 174, 187, 0.92); }
+        .bg-blue   { background: rgba(93, 156, 236, 0.92); }
+
+        .portfolio-item:hover img { filter: blur(0) grayscale(0); transform: scale(1.08); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 0; transform: scale(1.1); }
+
+        /* --- BACK TO TOP BUTTON STYLE --- */
+        #backToTop {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            background: var(--primary-purple); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; font-size: 1.2rem; opacity: 0; visibility: hidden;
+            transition: 0.4s; z-index: 2000; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        #backToTop.show { opacity: 1; visibility: visible; }
+
+        /* Socials */
+        .socials-section { padding: 60px 0; background: var(--light-purple); color: white; }
+        .social-row { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
+        .social-tag { text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: 0.3s; }
+        footer { padding: 40px; text-align: center; background: #fff; color: #999; font-size: 0.8rem; border-top: 1px solid #eee; }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            nav ul { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; gap: 15px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); text-align: center; }
+            nav ul.active { display: flex; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .mission-vision-grid, .values-grid { grid-template-columns: 1fr; }
+            .price-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="https://imgur.com/z4jDzpA.jpg" alt="Alyra Atelier Logo" class="logo-img">
+            <span class="logo-text">Alyra Atelier</span>
+        </a>
+        <div class="nav-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+        <nav>
+            <ul id="nav-list">
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="quote.html">Get Quote</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <a href="#" id="backToTop"><i class="fas fa-chevron-up"></i></a>
+
+	<section class="hero moving-bg" id="home" style="background: radial-gradient(circle, var(--soft-pink), var(--sky-blue), #ffffff); background-position: center;">
+        <div class="hero-text reveal">
+            <h1>Your Vision <br>Styled with Intention</h1>
+            <p>Clean, aesthetic, and intentional visual materials designed to help students and organizations communicate ideas clearly and creatively.</p>
+            <a href="quote.html" class="cta-btn btn-fill">Start Your Design</a>
+            <a href="#contact" class="cta-btn btn-outline">Message Us</a>
+        </div>
+    </section>
+
+    <section id="about" class="moving-bg" style="background: linear-gradient(-45deg, #FDE2E4, #FAD2E1, #ffffff, #FDE2E4);">
+        <div class="about-container reveal">
+            <h2 class="section-title" style="color: var(--primary-purple);">Our Story</h2>
+            <p style="margin-bottom: 40px; line-height: 1.8;">Alyra Atelier was founded by two young designers driven by a shared love for creativity and a desire to help others bring their ideas to life. What began as a fun passion project gradually grew into a creative studio dedicated to crafting visually engaging designs. Built with students and small organizations in mind, Alyra Atelier was formed to make quality design accessible while staying true to intention and style.</p>
+            
+            <div class="mission-vision-grid">
+                <div class="mv-card">
+                    <h3 style="color: var(--primary-purple); margin-bottom: 10px;">Mission</h3>
+                    <p>Our mission is to style every vision with purpose by creating designs that balance creativity, clarity, and aesthetics. We aim to help our clients communicate their ideas confidently through thoughtful and intentional visual design.</p>
+                </div>
+                <div class="mv-card" style="border-left-color: var(--sky-blue);">
+                    <h3 style="color: #5D9CEC; margin-bottom: 10px;">Vision</h3>
+                    <p>Our vision is to become a creative studio that empowers individuals, students, and organizations by transforming ideas into meaningful and visually compelling designs that leave a lasting impression.</p>
+                </div>
+            </div>
+
+            <h2 class="values-title">Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card" style="border-bottom-color: var(--primary-purple);">
+                    <h4 style="color: var(--primary-purple);">Creativity with Intention</h4>
+                    <p>Every design is thoughtfully crafted to serve a clear purpose.</p>
+                </div>
+                <div class="value-card" style="border-bottom-color: var(--sky-blue);">
+                    <h4 style="color: #5D9CEC;">Accessibility</h4>
+                    <p>We believe quality design should be approachable and inclusive.</p>
+                </div>
+                <div class="value-card" style="border-bottom-color: var(--soft-pink);">
+                    <h4 style="color: var(--soft-pink);">Clarity and Aesthetics</h4>
+                    <p>We balance visual appeal with clear communication.</p>
+                </div>
+                <div class="value-card" style="border-bottom-color: var(--light-purple);">
+                    <h4 style="color: var(--light-purple);">Client-Centered</h4>
+                    <p>Each project is tailored to the client’s vision, needs, and goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="moving-bg" style="background: linear-gradient(-45deg, #FAD2E1, #FFF1E6, #E0C3FC, #FAD2E1);">
+        <h2 class="section-title reveal" style="color: var(--primary-purple);">Meet Our Team</h2>
+        <div class="team-flex">
+            <div class="team-member reveal">
+                <div class="team-circle">
+                    <img src="https://imgur.com/xsg46xf.jpg" alt="Sophia Alyeska Ebreo">
+                </div>
+                <p class="quote-italic">"From whispered thoughts, visions awaken."</p>
+                <h3 style="color: var(--primary-purple);">Sophia Alyeska Ebreo</h3>
+                <p style="font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; color: #555; text-transform: uppercase;">Design Coordinator & Client Relations</p>
+                <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">She nurtures client communications and project flow, guiding each idea to bloom fully and clearly.</p>
+            </div>
+            
+            <div class="team-member reveal">
+                <div class="team-circle">
+                   <img src="https://imgur.com/lPunDHi.jpg" alt="Samantha Rayne Giron">
+                </div>
+                <p class="quote-italic">"And where visions awaken, creativity takes flight."</p>
+                <h3 style="color: var(--primary-purple);">Samantha Rayne Giron</h3>
+                <p style="font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; color: #555; text-transform: uppercase;">Creative Director & Lead Designer</p>
+                <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">Crafting the visual soul of every project, she transforms concepts into breathtaking artistic realities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" style="background: #fff;">
+        <h2 class="section-title reveal">Services & Pricing</h2>
+        <div class="pricing-grid reveal">
+            <div class="price-card"><h3>Pubmat</h3><p>₱175+</p></div>
+            <div class="price-card"><h3>Brochures</h3><p>₱200+</p></div>
+            <div class="price-card"><h3>Infographics</h3><p>₱250+</p></div>
+            <div class="price-card"><h3>Invitations</h3><p>₱150+</p></div>
+            <div class="price-card"><h3>Tarpaulin</h3><p>₱200+</p></div>
+            <div class="price-card"><h3>Menu</h3><p>₱200+</p></div>
+        </div>
+        <div class="price-disclaimer reveal">
+            Please note: Final pricing is thoughtfully tailored to the specific complexity, scale, and technical requirements of each project.
+        </div>
+    </section>
+
+    <section id="portfolio" class="moving-bg" style="background: radial-gradient(circle, #E6E6FA, #D6EAF8, #B8C0FF);">
+        <h2 class="section-title reveal">Sample Works</h2>
+        <div class="portfolio-grid reveal">
+            <div class="portfolio-item">
+                <img src="https://imgur.com/rxUgZng.jpg" alt="Pubmat">
+                <div class="portfolio-overlay bg-purple">Social Media Pubmat</div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://imgur.com/hWGaddy.jpg" alt="Brochure">
+                <div class="portfolio-overlay bg-pink">Event Brochures</div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://imgur.com/nLCEoGp.jpg" alt="Infographic">
+                <div class="portfolio-overlay bg-blue">Educational Infographics</div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://imgur.com/vL77gnn.jpg" alt="Menu">
+                <div class="portfolio-overlay bg-pink">Menu Design</div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://imgur.com/TUfzb0X.jpg" alt="Invite">
+                <div class="portfolio-overlay bg-blue">Invitations</div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://imgur.com/zvxCXD5.jpg" alt="Tarp">
+                <div class="portfolio-overlay bg-purple">Tarpaulins</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="socials-section" id="contact">
+        <h2 class="section-title reveal" style="color: white;">Follow the Journey</h2>
+        <div class="social-row reveal">
+            <a href="https://instagram.com/alyra.atelier" class="social-tag"><i class="fab fa-instagram"></i><span>@alyra.atelier</span></a>
+            <a href="https://tiktok.com/@designedbyalyra" class="social-tag"><i class="fab fa-tiktok"></i><span>@designedbyalyra</span></a>
+            <a href="https://facebook.com/alyra-atelier" class="social-tag"><i class="fab fa-facebook"></i><span>@alyra atelier</span></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>alyraatelier@gmail.com | © 2025 Alyra Atelier. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        const backToTop = document.getElementById('backToTop');
+
+        menuBtn.addEventListener('click', () => { navList.classList.toggle('active'); });
+
+        window.addEventListener('scroll', () => {
+            // Scroll Reveal
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+
+            // Back to top button logic
+            if (window.pageYOffset > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
