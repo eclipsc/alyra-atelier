@@ -154,6 +154,15 @@
         }
         #backToTop.show { opacity: 1; visibility: visible; }
 
+        /* --- ADDITION: FAQ DROP DOWN STYLING --- */
+        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-item { background: white; margin-bottom: 15px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid rgba(167, 170, 225, 0.3); transition: 0.3s; }
+        .faq-question { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--primary-purple); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: #fafafa; }
+        .faq-answer p { padding: 0 25px 20px 25px; color: #666; font-size: 0.95rem; line-height: 1.6; }
+        .faq-item.active .faq-answer { max-height: 200px; border-top: 1px solid #eee; padding-top: 20px; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); transition: 0.3s; }
+
         /* Socials */
         .socials-section { padding: 60px 0; background: var(--light-purple); color: white; }
         .social-row { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
@@ -180,11 +189,12 @@
         <div class="nav-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
         <nav>
             <ul id="nav-list">
-                <li><a href="#about">About</a></li>
+                <li><a href="#about">About Us</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="quote.html">Get Quote</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
     </header>
@@ -308,6 +318,28 @@
         </div>
     </section>
 
+    <section id="faq" style="background: #fff;">
+        <h2 class="section-title reveal">Frequently Asked Questions</h2>
+        <div class="faq-container reveal">
+            <div class="faq-item">
+                <div class="faq-question">What is your policy on revisions? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Revisions are included within agreed limits to refine the design while maintaining efficiency.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What is the quality of the final files? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Final design files are delivered in high quality, suitable for both digital use and professional printing.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do you accept custom design work? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Projects not listed on the price list are welcome and may be requested via direct message.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What is the turnaround time? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Timelines vary depending on project complexity and are discussed upon inquiry.</p></div>
+            </div>
+        </div>
+    </section>
+
     <section class="socials-section" id="contact">
         <h2 class="section-title reveal" style="color: white;">Follow the Journey</h2>
         <div class="social-row reveal">
@@ -327,6 +359,16 @@
         const backToTop = document.getElementById('backToTop');
 
         menuBtn.addEventListener('click', () => { navList.classList.toggle('active'); });
+
+        // FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(el => el.classList.remove('active'));
+                if (!isActive) { item.classList.add('active'); }
+            });
+        });
 
         window.addEventListener('scroll', () => {
             // Scroll Reveal
